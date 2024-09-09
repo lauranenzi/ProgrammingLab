@@ -11,7 +11,7 @@ class CSVFile():
                 elements = line.split(',')
                 if elements[0] != 'Date':
                     date = elements[0]
-                    value = elements[1].strip()
+                    value = elements[-1].strip()
                     my_list.append([date, value])
             my_file.close()
             return my_list
