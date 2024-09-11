@@ -28,6 +28,7 @@ class CSVFile():
             # Scorrimento di ogni riga del file
             for i, line in enumerate(my_file):
                 if (start==None and end==None) or (start <= i <= end):
+                    print(i)
                     # Divido la riga in elementi separati da virgola
                     elements = line.split(',')
                     # Rimuovo eventuali spazi vuoti o caratteri di nuova linea alla fine
@@ -37,7 +38,7 @@ class CSVFile():
                         my_list.append(elements)
             # Chiudo il file
             my_file.close()
-            if isinstance(end, int) and len(my_list)+1 < end:
+            if isinstance(end, int) and i +1 < end:
                 raise Exception(
                     'Errore: il parametro end {} è maggiore del numero di righe {}'.format(end,len(my_list))) 
              
@@ -89,5 +90,5 @@ class NumericalCSVFile(CSVFile):
     
 
 shampoofile = CSVFile('shampoo_sales.csv')
-lista_dati = shampoofile.get_data(3.3, 3.5)
+lista_dati = shampoofile.get_data(1, 1)
 print(lista_dati)
