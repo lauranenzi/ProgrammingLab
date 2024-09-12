@@ -90,5 +90,5 @@ class NumericalCSVFile(CSVFile):
     
 
 shampoofile = CSVFile('shampoo_sales.csv')
-lista_dati = shampoofile.get_data(1, 1)
+lista_dati = shampoofile.get_data(start = 5)
 print(lista_dati)
