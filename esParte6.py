@@ -6,17 +6,28 @@ class CSVFile():
         self.name = name
         if not isinstance(self.name, str):
             raise Exception('Errore: il nome del file non è una stringa')
+        
+        # Provo ad aprirlo e leggere una riga
+        self.can_read = True
+        try:
+            my_file = open(self.name, 'r')
+            my_file.readline()
+        except Exception as e:
+            self.can_read = False
+            print('Errore in apertura del file: "{}"'.format(e))
+        
 
     # Metodo per ottenere i dati dal file CSV
     def get_data(self, start=None, end=None):
-        if start is not None or end is not None:
-            if not isinstance(start, int):
-                raise Exception(
-                    'Errore: il parametro start non è un intero')
-            elif not isinstance(end, int):
-                raise Exception('Errore: il parametro end non è un intero')
-            elif start <= 0:
-                raise Exception(
+        try:
+            if start is not None or end is not None:
+                if not isinstance(start, int):
+                    raise Exception(
+                        'Errore: il parametro start non è un intero')
+                elif not isinstance(end, int):
+                    raise Exception('Errore: il parametro end non è un intero')
+                elif start <= 0:
+                    raise Exception(
                     'Errore: il parametro start non è un intero positivo')
             elif end < start:
                 raise Exception(
@@ -28,7 +39,6 @@ class CSVFile():
             # Scorrimento di ogni riga del file
             for i, line in enumerate(my_file):
                 if (start==None and end==None) or (start <= i <= end):
-                    print(i)
                     # Divido la riga in elementi separati da virgola
                     elements = line.split(',')
                     # Rimuovo eventuali spazi vuoti o caratteri di nuova linea alla fine
@@ -38,10 +48,9 @@ class CSVFile():
                         my_list.append(elements)
             # Chiudo il file
             my_file.close()
-            if isinstance(end, int) and i +1 < end:
+            if isinstance(end, int) and len(my_list)+1 < end:
                 raise Exception(
                     'Errore: il parametro end {} è maggiore del numero di righe {}'.format(end,len(my_list))) 
-             
             # Ritorno la lista dei dati letti dal file
             return my_list
 
@@ -90,5 +99,5 @@ class NumericalCSVFile(CSVFile):
     
 
 shampoofile = CSVFile('shampoo_sales.csv')
-lista_dati = shampoofile.get_data(1, 1)
+lista_dati = shampoofile.get_data(3.3, 3.5)
 print(lista_dati)
