@@ -32,6 +32,7 @@ class CSVFile():
         if isinstance(start, int) and isinstance(end, int):
             if end < start:
                 raise Exception('Errore: il parametro start è maggiore di end')  
+        intestazione = False
         try:               
             # Apertura del file in modalità lettura
             my_file = open(self.name, 'r')
@@ -45,9 +46,16 @@ class CSVFile():
                     # Salto l'intestazione se la prima colonna contiene 'Date'
                     if elements[0] != 'Date':
                         my_list.append(elements)
+                    else:
+                        intestazione = True
             # Chiudo il file
             my_file.close()
-            lenlist = len(my_list) +1 
+            if intestazione == True:
+                lenlist = len(my_list) +1    
+                if isinstance(end, int):
+                    end = end - 1
+            else:
+                lenlist = len(my_list)
             if isinstance(start, int):
                 if lenlist < start:
                     raise Exception(
@@ -113,6 +121,6 @@ class NumericalCSVFile(CSVFile):
         return numerical_data
     
 
-shampoofile = CSVFile('shampoo_sales.csv')
+shampoofile = CSVFile('test_file.csv')
 lista_dati = shampoofile.get_data(start=1, end=2)
 print(lista_dati)
