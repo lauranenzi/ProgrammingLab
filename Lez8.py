@@ -1,13 +1,12 @@
 import matplotlib.pyplot as plt
-from esParte6 import CSVFile 
 
 # Dati di esempio
-csv_file = CSVFile('test_file.csv')
-data = csv_file.get_data(start=1, end=2)
+x = [1, 2, 3, 4, 5]
+y = [2, 3, 5, 7, 11]
 
-# # Creazione del grafico
-# plt.plot(x, y)
-# plt.title("Grafico a Linee")
-# plt.xlabel("Asse X")
-# plt.ylabel("Asse Y")
-# plt.show()
+# Creazione del grafico
+plt.plot(x, y)
+plt.title("Grafico a Linee")
+plt.xlabel("Asse X")
+plt.ylabel("Asse Y")
+plt.show()
