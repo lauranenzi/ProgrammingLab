@@ -11,5 +11,3 @@ class TrendModel():
         
         prediction = data[-1] + var/(len(data)-1)
         return prediction
-
-

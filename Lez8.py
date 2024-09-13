@@ -1,8 +1,7 @@
 import matplotlib.pyplot as plt
 from esParte6 import NumericalCSVFile
 from EsParte8 import TrendModel
-
-            
+         
 shampoofile = NumericalCSVFile('shampoo_sales.csv')
 lista_dati = shampoofile.get_data()
 date= []
