@@ -67,12 +67,13 @@ class CSVFile():
                 if isinstance(end, int):
                     if lenlist < end :
                         raise Exception(
-                            'Errore: il parametro end {} è maggiore del numero di righe {}'.format(end,lenlist))             
-                    my_list = my_list[start-1 : end] 
+                            'Errore: il parametro end {} è maggiore del numero di righe {}'.format(end,lenlist))      
+                    if start == 0:
+                        my_list = my_list[start : end] 
+                    else:
+                        my_list = my_list[start-1 : end] 
                 else:
-                    print(my_list)
                     my_list = my_list[start-1:] 
-                    print(my_list)
             else:
                 if isinstance(end, int):
                     if lenlist < end:
@@ -127,6 +128,6 @@ class NumericalCSVFile(CSVFile):
         return numerical_data
     
 
-shampoofile = CSVFile('test_file.csv')
-lista_dati = shampoofile.get_data(start=1, end=39)
-print(lista_dati)
+# shampoofile = NumericalCSVFile('shampoo_sales.csv')
+# lista_dati = shampoofile.get_data()
+# print(lista_dati)
