@@ -12,9 +12,11 @@ class CSVFile():
         try:
             my_file = open(self.name, 'r')
             my_file.readline()
+            my_file.close()
         except Exception as e:
             self.can_read = False
             print('Errore in apertura del file: "{}"'.format(e))
+        
         
 
     # Metodo per ottenere i dati dal file CSV
@@ -54,19 +56,23 @@ class CSVFile():
                 lenlist = len(my_list) +1    
                 if isinstance(end, int):
                     end = end - 1
+                if isinstance(start, int):
+                    start = start-1
             else:
                 lenlist = len(my_list)
             if isinstance(start, int):
                 if lenlist < start:
                     raise Exception(
-                    'Errore: il parametro start {} è maggiore del numero di righe {}'.format(end,lenlist)) 
+                    'Errore: il parametro start {} è maggiore del numero di righe {}'.format(start,lenlist)) 
                 if isinstance(end, int):
-                    if lenlist < end:
+                    if lenlist < end :
                         raise Exception(
-                            'Errore: il parametro end {} è maggiore del numero di righe {}'.format(end,lenlist))                  
-                    my_list = my_list[start -1:end] 
+                            'Errore: il parametro end {} è maggiore del numero di righe {}'.format(end,lenlist))             
+                    my_list = my_list[start-1 : end] 
                 else:
-                    my_list = my_list[start -1] 
+                    print(my_list)
+                    my_list = my_list[start-1:] 
+                    print(my_list)
             else:
                 if isinstance(end, int):
                     if lenlist < end:
@@ -122,5 +128,5 @@ class NumericalCSVFile(CSVFile):
     
 
 shampoofile = CSVFile('test_file.csv')
-lista_dati = shampoofile.get_data(start=1, end=2)
+lista_dati = shampoofile.get_data(start=1, end=39)
 print(lista_dati)

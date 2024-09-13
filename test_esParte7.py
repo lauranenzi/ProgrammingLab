@@ -13,6 +13,6 @@ class TestCSVFile(unittest.TestCase):
 
     def test_start_end(self):
         csv_file = CSVFile('test_file.csv')
-        data = csv_file.get_data(start=2, end=2)
+        data = csv_file.get_data(start=1, end=2)
         self.assertEqual(data[0][0], '1949-01')
         
