@@ -58,7 +58,7 @@ if prediction != 70:
 
 
 # Infine tetso il modello con una finstra di lunghezza # diversa da quella di default di 3 mesi
-trend_model = FitTrendModel(window=3)
+trend_model = FitTrendModel()
 
 # Testo che la lungezza della finestra sia stata settata a 3
 if trend_model.window != 3:
@@ -71,7 +71,7 @@ test_data = [50,52,60]
 prediction_true = 68
 
 trend_model.fit(historical_data)
-prediction = trend_model.prediction(test_data)
+prediction = trend_model.predict(test_data)
 
 # Testo che il risultato sia corretto
 if prediction != 68:

@@ -1,10 +1,35 @@
 class Model():
+
+    def __init__(self, window=3): 
+        self.window = window
+
     def fit(self, data):
         # Fit non implementato nella classe base
         raise NotImplementedError('Metodo non implementato')
     def predict(self, data):
         # Predict non implementato nella classe base
         raise NotImplementedError('Metodo non implementato')
+    
+    def evaluate(self, data):
+        fit_data_cutoff =int (0.7 * len(data))
+        fit_data = data[:fit_data_cutoff]
+        test_data = data[fit_data_cutoff:]
+        try:
+            self.fit(fit_data)
+        except Exception as e:
+            if isinstance(e, NotImplementedError):
+                pass
+            else:
+                raise Exception('Metodo implementato ma ha sollevato una eccezione {}'.format(e))
+        evaluation_mae = []
+        for i in range(len(test_data)):
+            if i + self.window < len(test_data):
+                prediction_no_fit1 = self.predict(test_data[i:i + self.window])
+                evaluation_mae.append(abs(test_data[i + self.window]-prediction_no_fit1))
+
+        evaluation_mae = sum(evaluation_mae)/len(evaluation_mae)
+
+        return evaluation_mae
 
 
 class TrendModel(Model):
@@ -44,7 +69,7 @@ class FitTrendModel(TrendModel):
     def fit(self, data):
           self.historical_avg_variation = self.compute_avg_variation(data)
 
-    def prediction(self, data):
+    def predict(self, data):
         try:
             self.historical_avg_variation 
         except AttributeError:
